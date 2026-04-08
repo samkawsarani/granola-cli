@@ -45,7 +45,7 @@ while IFS= read -r line; do
     else
       CAPTURING=false
     fi
-  elif [[ "$line" =~ ^##\ ]]; then
+  elif [[ "$line" =~ ^##[[:space:]] ]]; then
     IN_UNRELEASED=false
     CAPTURING=false
   elif $CAPTURING; then
