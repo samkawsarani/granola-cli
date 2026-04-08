@@ -1,0 +1,50 @@
+{
+  "name": "@samkawsarani/granola-cli",
+  "version": "1.0.0",
+  "description": "Granola API integration — notes, transcripts, and sync with CLI",
+  "license": "MIT",
+  "homepage": "https://github.com/samkawsarani/granola-cli#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samkawsarani/granola-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/samkawsarani/granola-cli/issues"
+  },
+  "type": "module",
+  "main": "./dist/lib/index.js",
+  "types": "./dist/lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib/index.js",
+      "default": "./dist/lib/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "granola": "./dist/granola.js"
+  },
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "test": "bun test",
+    "prepublishOnly": "bun run build"
+  },
+  "files": [
+    "dist/",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "dependencies": {
+    "commander": "^12",
+    "dotenv": "^16",
+    "js-yaml": "^4"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4",
+    "@types/node": "^22",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,19 @@
+# Build output
+dist/
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+
+# Granola sync
+sync-state.json
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# macOS
+.DS_Store
