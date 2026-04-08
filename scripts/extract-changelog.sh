@@ -31,6 +31,10 @@ CAPTURING=false
 UNRELEASED_CONTENT=""
 IN_UNRELEASED=false
 
+# Regex for "any ## heading line" — must not be inlined in [[ =~ ]]: a literal
+# [[:space:]] ends with ]] which bash parses as closing the outer [[ ... ]].
+RE_ANY_H2='^##[[:space:]]'
+
 while IFS= read -r line; do
   if [[ "$line" =~ ^##\ \[Unreleased\] ]]; then
     CAPTURING=true
@@ -45,7 +49,7 @@ while IFS= read -r line; do
     else
       CAPTURING=false
     fi
-  elif [[ "$line" =~ ^##[[:space:]] ]]; then
+  elif [[ "$line" =~ $RE_ANY_H2 ]]; then
     IN_UNRELEASED=false
     CAPTURING=false
   elif $CAPTURING; then
