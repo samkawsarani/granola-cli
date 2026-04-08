@@ -18,7 +18,7 @@ Access your meetings, notes, and transcripts directly from the terminal. Built w
 ```bash
 npm install -g @samkawsarani/granola-cli
 # or
-bun add -g @samkawsarani/granola-cli
+bun install -g @samkawsarani/granola-cli
 ```
 
 ## Quick Start

@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- fixed readme installation instructions for bun
 
 ## [1.0.1] - 2026-04-08
 
