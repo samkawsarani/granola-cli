@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+- Fix `listAllNotes` to correctly forward `before` and `updatedAfter` filter options (were previously dropped).
+- Fix `list-notes` CLI command to pass `--before` and `--updated-after` flags through to `listAllNotes`.
+- Cap rate-limit retry wait at 120 seconds (was unbounded based on `Retry-After` header).
+- Improve `loadSyncState` error message when `sync-state.json` is malformed JSON.
+- Fix path traversal vulnerability in `syncNotes`: validate old file path stays inside notes directory before deleting.
+
 ## [1.0.4] - 2026-04-09
 - CI: upgrade GitHub Actions to Node 24-compatible versions (checkout v5, setup-node v6).
 
