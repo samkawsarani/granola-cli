@@ -19,6 +19,6 @@ Use `granola` to access Granola meeting notes.
 3. `granola sync-notes` to keep local files up to date (idempotent, re-runs detect updates and folder moves)
 
 ## Notes directory
-Synced files go to `GRANOLA_NOTES_DIR` (default `~/granola-notes`).
+Synced files go to `GRANOLA_NOTES_DIR` (default `./granola-notes`).
 `sync-state.json` tracks what has been synced; do not edit manually.
 Use `--force` to re-sync everything (e.g. after changing `GRANOLA_SYNC_CONTENT`).

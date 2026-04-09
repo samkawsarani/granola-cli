@@ -38,7 +38,7 @@ A local `.env` in the working directory overrides the global config.
 | Variable | Default | Description |
 |---|---|---|
 | `GRANOLA_API_KEY` | — | Granola API key (required) |
-| `GRANOLA_NOTES_DIR` | `~/granola-notes` | Directory for synced notes |
+| `GRANOLA_NOTES_DIR` | `./granola-notes` | Directory for synced notes |
 | `GRANOLA_FILENAME_FORMAT` | `{date}-{title}` | Filename template |
 | `GRANOLA_USE_FOLDERS` | `false` | Organize by folder subfolders |
 | `GRANOLA_SYNC_CONTENT` | `transcript` | `transcript` / `summary` / `both` |
@@ -60,7 +60,7 @@ const note = await getNote("not_1d3tmYTlCICgjy", true);
 
 // Sync to disk
 const result = await syncNotes({
-  notesDir: "~/granola-notes",
+  notesDir: "./granola-notes",
   syncContent: "transcript",  // "transcript" | "summary" | "both"
   force: false,
 });

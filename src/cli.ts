@@ -72,7 +72,7 @@ async function cmdInit(): Promise<void> {
   if (!apiKey) throw new Error("API key cannot be empty.");
 
   const notesDir =
-    (await promptInput("Notes directory [~/granola-notes]: ")) || "~/granola-notes";
+    (await promptInput("Notes directory [./granola-notes]: ")) || "./granola-notes";
 
   console.log("\nFilename format tokens: {date}  {title}");
   console.log("Examples:");
@@ -156,7 +156,7 @@ async function cmdSyncNotes(options: {
 }): Promise<void> {
   loadConfig();
 
-  const notesDir = process.env.GRANOLA_NOTES_DIR ?? "~/granola-notes";
+  const notesDir = process.env.GRANOLA_NOTES_DIR ?? "./granola-notes";
   const filenameFormat = process.env.GRANOLA_FILENAME_FORMAT ?? "{date}-{title}";
   const useFolders = ["true", "1", "yes"].includes(
     (process.env.GRANOLA_USE_FOLDERS ?? "false").toLowerCase(),

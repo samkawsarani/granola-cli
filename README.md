@@ -64,7 +64,7 @@ const note = await getNote("not_1d3tmYTlCICgjy", true);
 
 // Sync notes to local files
 const result = await syncNotes({
-  notesDir: "~/granola-notes",
+  notesDir: "./granola-notes",
   syncContent: "transcript", // "transcript" | "summary" | "both"
 });
 console.log(result); // { synced: 5, skipped: 12, moved: 0 }
@@ -77,7 +77,7 @@ Run `granola init` for interactive setup, or set environment variables directly.
 | Variable | Default | Description |
 |---|---|---|
 | `GRANOLA_API_KEY` | — | Granola API key (required) |
-| `GRANOLA_NOTES_DIR` | `~/granola-notes` | Directory for synced notes |
+| `GRANOLA_NOTES_DIR` | `./granola-notes` | Directory for synced notes |
 | `GRANOLA_FILENAME_FORMAT` | `{date}-{title}` | Filename template |
 | `GRANOLA_USE_FOLDERS` | `false` | Organise into folder subfolders |
 | `GRANOLA_SYNC_CONTENT` | `transcript` | `transcript` / `summary` / `both` |
@@ -96,4 +96,4 @@ State is persisted in `{GRANOLA_NOTES_DIR}/sync-state.json`. Use `--force` to re
 
 ## License
 
-[MIT](LICENSE) — Copyright (c) 2024-2026 Sam Kawsarani
+[MIT](LICENSE) — Copyright (c) 2026 Sam Kawsarani
