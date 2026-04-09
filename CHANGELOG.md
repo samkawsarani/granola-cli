@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.0.5] - 2026-04-09
+
 - Fix `listAllNotes` to correctly forward `before` and `updatedAfter` filter options (were previously dropped).
 - Fix `list-notes` CLI command to pass `--before` and `--updated-after` flags through to `listAllNotes`.
 - Cap rate-limit retry wait at 120 seconds (was unbounded based on `Retry-After` header).
