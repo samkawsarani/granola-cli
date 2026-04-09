@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Default `GRANOLA_NOTES_DIR` when unset is `./granola-notes` (cwd) instead of `~/granola-notes`.
+
 ## [1.0.2] - 2026-04-08
 - fixed readme installation instructions for bun
 
