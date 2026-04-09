@@ -55,13 +55,21 @@ export async function listNotes(options: {
 
 export async function listAllNotes(options: {
   after?: string;
+  before?: string;
+  updatedAfter?: string;
   limit?: number;
 } = {}): Promise<Record<string, unknown>[]> {
   const results: Record<string, unknown>[] = [];
   let cursor: string | undefined;
 
   while (true) {
-    const page = await listNotes({ pageSize: 30, cursor, createdAfter: options.after });
+    const page = await listNotes({
+      pageSize: 30,
+      cursor,
+      createdAfter: options.after,
+      createdBefore: options.before,
+      updatedAfter: options.updatedAfter,
+    });
     let notes = page.notes;
     if (options.limit != null) {
       const remaining = options.limit - results.length;
@@ -189,7 +197,13 @@ export function noteToMarkdown(
 export function loadSyncState(notesDir: string): SyncState {
   const stateFile = path.join(notesDir, "sync-state.json");
   if (fs.existsSync(stateFile)) {
-    return JSON.parse(fs.readFileSync(stateFile, "utf8")) as SyncState;
+    try {
+      return JSON.parse(fs.readFileSync(stateFile, "utf8")) as SyncState;
+    } catch (e) {
+      throw new Error(
+        `Failed to parse sync state at ${stateFile}: ${e instanceof Error ? e.message : String(e)}`,
+      );
+    }
   }
   return { notes: {} };
 }
@@ -266,8 +280,11 @@ export async function syncNotes(options: {
     const relPath = path.relative(notesDir, filePath).split(path.sep).join("/");
 
     if (existing && existing.file !== relPath) {
-      const oldAbs = path.join(notesDir, existing.file);
-      if (fs.existsSync(oldAbs)) fs.rmSync(oldAbs);
+      const notesDirAbs = path.resolve(notesDir);
+      const oldAbs = path.resolve(path.join(notesDir, existing.file));
+      if (oldAbs.startsWith(notesDirAbs + path.sep) && fs.existsSync(oldAbs)) {
+        fs.rmSync(oldAbs);
+      }
       moved++;
     }
 

@@ -2,7 +2,7 @@ import { describe, test, expect, beforeEach, afterEach } from "bun:test";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
-import { GranolaClient, APIError, _setClient } from "../src/client";
+import { GranolaClient, APIError, __setClient } from "../src/client";
 import {
   makeFilename,
   noteToMarkdown,
@@ -87,7 +87,7 @@ function tmpDir(): string {
 }
 
 afterEach(() => {
-  _setClient(null);
+  __setClient(null);
 });
 
 // ---------------------------------------------------------------------------
@@ -179,7 +179,7 @@ test("list_notes API", async () => {
     hasMore: false,
     cursor: null,
   }));
-  _setClient(client);
+  __setClient(client);
 
   const result = await listNotes({ pageSize: 10 });
   expect(result.notes).toHaveLength(1);
@@ -196,7 +196,7 @@ test("list_notes pagination", async () => {
     if (calls === 1) return { notes: [NOTE_SUMMARY], hasMore: true, cursor: "page2" };
     return { notes: [note2], hasMore: false, cursor: null };
   });
-  _setClient(client);
+  __setClient(client);
 
   const all = await listAllNotes();
   expect(all).toHaveLength(2);
@@ -206,7 +206,7 @@ test("list_notes pagination", async () => {
 
 test("get_note without transcript", async () => {
   const client = mockClient(async () => FULL_NOTE);
-  _setClient(client);
+  __setClient(client);
 
   const note = await getNote("not_1d3tmYTlCICgjy");
   expect(note.id).toBe("not_1d3tmYTlCICgjy");
@@ -215,7 +215,7 @@ test("get_note without transcript", async () => {
 
 test("get_note with transcript", async () => {
   const client = mockClient(async () => FULL_NOTE_WITH_TRANSCRIPT);
-  _setClient(client);
+  __setClient(client);
 
   const note = await getNote("not_1d3tmYTlCICgjy", true);
   expect(note.transcript).not.toBeNull();
@@ -231,7 +231,7 @@ test("sync_notes writes markdown files", async () => {
     getNoteCalled = true;
     return FULL_NOTE_WITH_TRANSCRIPT;
   });
-  _setClient(client);
+  __setClient(client);
 
   const result = await syncNotes({ notesDir: dir, syncContent: "transcript" });
   expect(result.synced).toBe(1);
@@ -257,7 +257,7 @@ test("sync_notes deduplication", async () => {
     if (urlPath === "/v1/notes") return { notes: [NOTE_SUMMARY], hasMore: false, cursor: null };
     return FULL_NOTE_WITH_TRANSCRIPT;
   });
-  _setClient(client);
+  __setClient(client);
 
   const first = await syncNotes({ notesDir: dir, syncContent: "transcript" });
   const second = await syncNotes({ notesDir: dir, syncContent: "transcript" });
@@ -283,7 +283,7 @@ test("sync_notes updated_at triggers resync", async () => {
     }
     return FULL_NOTE_WITH_TRANSCRIPT;
   });
-  _setClient(client);
+  __setClient(client);
 
   const first = await syncNotes({ notesDir: dir });
   const second = await syncNotes({ notesDir: dir });
@@ -326,7 +326,7 @@ test("sync_notes folder move", async () => {
     getCallCount++;
     return getCallCount === 1 ? noteInFolderA : noteInFolderB;
   });
-  _setClient(client);
+  __setClient(client);
 
   const first = await syncNotes({ notesDir: dir, useFolders: true });
   const second = await syncNotes({ notesDir: dir, useFolders: true });
@@ -347,7 +347,7 @@ test("sync_notes force", async () => {
     if (urlPath === "/v1/notes") return { notes: [NOTE_SUMMARY], hasMore: false, cursor: null };
     return FULL_NOTE_WITH_TRANSCRIPT;
   });
-  _setClient(client);
+  __setClient(client);
 
   await syncNotes({ notesDir: dir });
   const second = await syncNotes({ notesDir: dir, force: true });

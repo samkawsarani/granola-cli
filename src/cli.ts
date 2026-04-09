@@ -129,7 +129,12 @@ async function cmdListNotes(options: {
   let notes: Record<string, unknown>[];
 
   if (options.limit || options.after || options.before || options.updatedAfter) {
-    notes = await listAllNotes({ after: options.after, limit: options.limit });
+    notes = await listAllNotes({
+      after: options.after,
+      before: options.before,
+      updatedAfter: options.updatedAfter,
+      limit: options.limit,
+    });
   } else {
     const result = await listNotes({
       pageSize: options.pageSize ?? 10,

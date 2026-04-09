@@ -50,8 +50,9 @@ export class GranolaClient {
       });
 
       if (response.status === 429 && retries < 3) {
-        const wait = parseFloat(response.headers.get("Retry-After") ?? "1");
-        await new Promise((r) => setTimeout(r, wait * 1000));
+        const waitSecs = parseFloat(response.headers.get("Retry-After") ?? "1");
+        const waitMs = Math.min(waitSecs * 1000, 120_000);
+        await new Promise((r) => setTimeout(r, waitMs));
         retries++;
         continue;
       }
@@ -81,6 +82,6 @@ export function getClient(): GranolaClient {
   return _client;
 }
 
-export function _setClient(client: GranolaClient | null): void {
+export function __setClient(client: GranolaClient | null): void {
   _client = client;
 }
