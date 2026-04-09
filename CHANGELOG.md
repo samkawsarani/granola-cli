@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+- CI: upgrade GitHub Actions to Node 24-compatible versions (checkout v5, setup-node v6).
+
 
 ## [1.0.3] - 2026-04-08
 
