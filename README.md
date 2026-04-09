@@ -64,8 +64,14 @@ const note = await getNote("not_1d3tmYTlCICgjy", true);
 
 // Sync notes to local files
 const result = await syncNotes({
-  notesDir: "./granola-notes",
-  syncContent: "transcript", // "transcript" | "summary" | "both"
+  notesDir: "./granola-notes",          // required
+  after: "2026-01-01",                  // optional
+  fmt: "markdown",                      // optional: "markdown" | "json"
+  limit: 25,                            // optional
+  filenameFormat: "{date}-{title}",     // optional
+  useFolders: true,                     // optional
+  syncContent: "transcript",            // optional: "transcript" | "summary" | "both"
+  force: false                         // optional
 });
 console.log(result); // { synced: 5, skipped: 12, moved: 0 }
 ```
