@@ -57,7 +57,12 @@ import { listNotes, listAllNotes, getNote, syncNotes } from "@samkawsarani/grano
 const page = await listNotes({ pageSize: 10 });
 
 // All notes, auto-paginated
-const notes = await listAllNotes({ after: "2026-01-01" });
+const notes = await listAllNotes({
+  after: "2026-01-01",       // optional: created after date
+  before: "2026-03-01",      // optional: created before date
+  updatedAfter: "2026-01-01", // optional: updated after date
+  limit: 100,                // optional: max notes to return
+});
 
 // Single note with transcript
 const note = await getNote("not_1d3tmYTlCICgjy", true);

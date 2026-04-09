@@ -403,6 +403,7 @@ program
   .option("--format <fmt>", "Output format: markdown or json", "markdown")
   .option("--limit <n>", "Maximum number of notes to sync", parseInt)
   .option("--force", "Re-sync all notes regardless of state", false)
+  .addHelpText("after", "\nConfig (set via env or `granola init`): GRANOLA_NOTES_DIR, GRANOLA_SYNC_CONTENT, GRANOLA_FILENAME_FORMAT, GRANOLA_USE_FOLDERS")
   .action(async (opts) => {
     try {
       await cmdSyncNotes({
