@@ -4,7 +4,7 @@ Use `granola` to access Granola meeting notes.
 
 ## Commands
 
-- `granola list-notes [--after YYYY-MM-DD] [--limit N]` — list recent notes (JSON array)
+- `granola list-notes [--after YYYY-MM-DD] [--updated-after YYYY-MM-DD] [--limit N]` — list recent notes (JSON array)
 - `granola get-note --id <note_id>` — get full note with summary
 - `granola get-note --id <note_id> --transcript` — include transcript
 - `granola sync-notes [--after YYYY-MM-DD] [--force]` — sync all notes to local files

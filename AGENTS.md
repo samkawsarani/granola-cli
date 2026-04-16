@@ -159,6 +159,7 @@ granola sync-notes --force                          # re-sync all (ignores cache
 granola install-skill                               # install agent skill (local project)
 granola install-skill --global                      # install agent skill (global)
 granola install-skill --claude                      # also link .claude without prompting
+granola install-skill --force                       # overwrite existing SKILL.md (reinstall)
 ```
 
 ## Library usage (user reference)

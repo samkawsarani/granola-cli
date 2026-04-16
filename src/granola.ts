@@ -177,7 +177,7 @@ export function noteToMarkdown(
       for (const entry of transcript) {
         const speaker = (entry.speaker as Record<string, unknown>) ?? {};
         const source = (speaker.source as string) ?? "speaker";
-        const label = source === "microphone" ? "Microphone" : "Speaker";
+        const label = source === "microphone" ? "Me" : "Them";
         const ts = formatTimestamp((entry.start_time as string) ?? "");
         const text = (entry.text as string) ?? "";
         lines.push(`**[${ts}] ${label}:** ${text}`);

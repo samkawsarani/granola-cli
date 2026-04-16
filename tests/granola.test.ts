@@ -130,8 +130,8 @@ describe("noteToMarkdown", () => {
   test("transcript only — no summary", () => {
     const md = noteToMarkdown(FULL_NOTE_WITH_TRANSCRIPT as Record<string, unknown>, "transcript");
     expect(md).toContain("## Transcript");
-    expect(md).toContain("Microphone");
-    expect(md).toContain("Speaker");
+    expect(md).toContain("**[15:30:00] Me:**");
+    expect(md).toContain("**[15:31:00] Them:**");
     expect(md).toContain("15:30:00");
     expect(md).not.toContain("## Summary");
   });
@@ -247,7 +247,7 @@ test("sync_notes writes markdown files", async () => {
 
   const content = fs.readFileSync(mdPath, "utf8");
   expect(content).toContain("## Transcript");
-  expect(content).toContain("Microphone");
+  expect(content).toContain("**[15:30:00] Me:**");
 });
 
 test("sync_notes deduplication", async () => {

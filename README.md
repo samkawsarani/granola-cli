@@ -46,6 +46,7 @@ granola sync-notes --force
 granola install-skill
 granola install-skill --global
 granola install-skill --claude              # create .claude symlink without prompting
+granola install-skill --force               # overwrite existing SKILL.md (reinstall/upgrade)
 ```
 
 ## Library Usage

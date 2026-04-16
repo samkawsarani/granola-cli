@@ -229,7 +229,7 @@ async function resolveClaudeSymlinkChoice(
   return a === "" || a === "y" || a === "yes";
 }
 
-async function cmdInstallSkill(options: { global: boolean; claude: boolean }): Promise<void> {
+async function cmdInstallSkill(options: { global: boolean; claude: boolean; force: boolean }): Promise<void> {
   const content = readPackagedSkillMarkdown();
   const agentsSkillsDir = options.global
     ? path.join(os.homedir(), ".agents", "skills")
@@ -259,7 +259,7 @@ async function cmdInstallSkill(options: { global: boolean; claude: boolean }): P
   if (skillsDirsAreSame) {
     throwIfLegacyFlatSkillEntry(agentsSkillDir, `"${SKILL_INSTALL_NAME}" under .agents/skills`);
     if (fs.existsSync(agentsSkillDir) && fs.statSync(agentsSkillDir).isDirectory()) {
-      if (agentsSkillMdPresent) {
+      if (agentsSkillMdPresent && !options.force) {
         console.log(
           `Skill already installed at ${agentsSkillMd} (.claude/skills and .agents/skills are the same directory).`,
         );
@@ -283,7 +283,7 @@ async function cmdInstallSkill(options: { global: boolean; claude: boolean }): P
 
   if (agentsSkillDirExists && claudeSkillDirExists) {
     if (sameRealPath(agentsSkillDir, claudeSkillDir)) {
-      if (agentsSkillMdPresent) {
+      if (agentsSkillMdPresent && !options.force) {
         console.log(`Skill already installed; ${claudeSkillDir} points to ${agentsSkillDir}.`);
         return;
       }
@@ -310,7 +310,7 @@ async function cmdInstallSkill(options: { global: boolean; claude: boolean }): P
     : false;
 
   if (agentsSkillDirExists && !claudeSkillDirExists) {
-    if (!agentsSkillMdPresent) {
+    if (!agentsSkillMdPresent || options.force) {
       fs.writeFileSync(agentsSkillMd, content);
       console.log(`Skill written to ${agentsSkillMd}`);
     }
@@ -424,9 +424,10 @@ program
   )
   .option("--global", "Use ~/.agents/skills and ~/.claude/skills", false)
   .option("--claude", "Create the .claude skills symlink without prompting", false)
+  .option("--force", "Overwrite SKILL.md even if already installed", false)
   .action(async (opts) => {
     try {
-      await cmdInstallSkill({ global: opts.global, claude: opts.claude });
+      await cmdInstallSkill({ global: opts.global, claude: opts.claude, force: opts.force });
     } catch (err) {
       handleError(err);
     }
