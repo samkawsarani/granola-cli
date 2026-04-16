@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-04-15
+
 - Fix transcript speaker labels: `microphone` source now renders as `Me`, all other sources as `Them`.
 - Add `--force` flag to `install-skill`: overwrites an existing SKILL.md instead of skipping.
 - Document `--updated-after` flag in `granola` agent skill.
